@@ -1,9 +1,8 @@
 import React, { PureComponent } from "react";
-// import PropTypes from "prop-types";
-import "./Footer.scss";
-const propTypes = {};
+import PropTypes from "prop-types";
+import "./footer.scss";
 
-class Footer extends PureComponent {
+class footer extends PureComponent {
   render() {
     return (
       <footer className="footer">
@@ -62,9 +61,9 @@ class Footer extends PureComponent {
             <div className="col-lg-12">
               <div className="footer_nav_container">
                 <div className="cr">
-                  ©2019 All Rights Reserverd. This template is made with{" "}
+                  ©2018 All Rights Reserverd. This template is made with{" "}
                   <i className="fa fa-heart-o" aria-hidden="true" /> by{" "}
-                  <a href="#">Cường Nguyễn</a>
+                  <a href="/">Cường Nguyễn</a>
                 </div>
               </div>
             </div>
@@ -75,6 +74,6 @@ class Footer extends PureComponent {
   }
 }
 
-Footer.propTypes = propTypes;
+footer.propTypes = {};
 
-export default Footer;
+export default footer;

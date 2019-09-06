@@ -1,33 +1,46 @@
 import React, { PureComponent } from "react";
-import Cart from "../../components/CartPage/Cart/Cart";
-import { Link } from "react-router-dom";
+// import PropTypes from "prop-types";
+import CartList from "../../components/CartList/CartList";
+import { connect } from "react-redux";
+import {
+  actPlusProductInCart,
+  actMinusProductInCart
+} from "../../actions/index";
+
 class CartPage extends PureComponent {
-  handleTotalProductPrice = () => {};
-
   render() {
+    const {
+      cart,
+      onUpdatePlusProductInCart,
+      onUpdateMinusProductInCart
+    } = this.props;
     return (
-      <section className="section" style={{ marginTop: "200px" }}>
-        <div className="table-responsive">
-          <table className="table product-table">
-            <thead>
-              <tr>
-                <th />
-                <th>Sản Phẩm</th>
-                <th>Giá</th>
-                <th>Số Lượng</th>
-                <th>Tổng Cộng</th>
-                <th />
-              </tr>
-            </thead>
-
-            <Cart />
-          </table>
-        </div>
-      </section>
+      <CartList
+        cart={cart}
+        onUpdatePlusProductInCart={onUpdatePlusProductInCart}
+        onUpdateMinusProductInCart={onUpdateMinusProductInCart}
+      />
     );
   }
 }
 
 CartPage.propTypes = {};
-
-export default CartPage;
+const mapStateToProps = state => {
+  return {
+    cart: state.cart
+  };
+};
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onUpdatePlusProductInCart: product => {
+      dispatch(actPlusProductInCart(product, 1));
+    },
+    onUpdateMinusProductInCart: product => {
+      dispatch(actMinusProductInCart(product, 1));
+    }
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CartPage);

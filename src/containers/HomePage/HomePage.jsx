@@ -1,24 +1,26 @@
 import React, { PureComponent } from "react";
-import QuickCategories from "../../components/HomePage/QuickCategories/QuickCategories";
-import MainSlider from "../../components/HomePage/HeroBanner/MainSlider/MainSlider";
-import NewArrival from "../../components/HomePage/NewArrival/NewArrival/NewArrival";
-import DealOfTheWeek from "../../components/HomePage/DealOfTheWeek/DealOfTheWeek";
-import ShippingInformation from "../../components/Common/ShippingInformation/ShippingInformation";
-import "../HomePage/HomePage.scss";
+// import PropTypes from "prop-types";
+
+import HeroBanner from "../../components/HeroBanner/HeroBanner";
+import QuickCategories from "../../components/QuickCategories/QuickCategories";
+import DealOfTheWeek from "../../components/DealOfTheWeek/DealOfTheWeek";
+import ShippingInformation from "../../components/ShippingInformation/ShippingInformation";
+import NewArrival from "../../components/NewArrival/NewArrival";
+
 class HomePage extends PureComponent {
   render() {
     return (
-      <>
-        <MainSlider />
-        <QuickCategories />
-        <NewArrival />
-        <DealOfTheWeek />
-        <ShippingInformation />
-      </>
+      <div className="super_container">
+        <HeroBanner />;
+        <QuickCategories />;
+        <NewArrival />;
+        <DealOfTheWeek />;
+        <ShippingInformation />;
+      </div>
     );
   }
 }
 
-// HomePage.propTypes = {};
+HomePage.propTypes = {};
 
 export default HomePage;

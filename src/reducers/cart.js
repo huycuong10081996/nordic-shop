@@ -1,47 +1,64 @@
-import { ActionType } from "../actions/actionTypes";
-let data = JSON.parse(localStorage.getItem("CART_ITEM"));
-const intialState = data ? data : [];
-
-const cartReducer = (state = intialState, action) => {
-  let { productItem, quantity } = action;
-  let indexItem = -1;
+import * as types from "./../constants/ActionTypes";
+let data = JSON.parse(localStorage.getItem("CART"));
+let initialState = {
+  listCart: data ? data.listCart : []
+};
+const cart = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.ADD_NEW_CART: {
-      indexItem = findProductInCartById(state, productItem);
-      const stateTemp = [...state];
-      if (indexItem !== -1) {
-        stateTemp[indexItem].quantity += quantity;
+    case types.ADD_TO_CART: {
+      const { product, quantity } = action;
+      const newListCart = [...state.listCart];
+      const index = newListCart.findIndex(x => x.product.id === product.id);
+      if (index !== -1) {
+        newListCart[index].quantity += quantity;
       } else {
-        stateTemp.push({ productItem, quantity });
+        newListCart.push({
+          product,
+          quantity
+        });
       }
-      localStorage.setItem("CART_ITEM", JSON.stringify(stateTemp));
-      return { state: stateTemp };
+      const newState = { ...state, listCart: newListCart };
+      localStorage.setItem("CART", JSON.stringify(newState));
+      return newState;
     }
-
-    case ActionType.UPDATE_QUANTITY_CART: {
-      indexItem = findProductInCartById(state, productItem);
-      const stateTemp = [...state];
-      if (indexItem !== -1) {
-        stateTemp[indexItem].quantity = quantity;
+    case types.DELETE_PRODUCT_IN_CART: {
+      let { product } = action;
+      const newListCart = [...state.listCart];
+      const index = newListCart.findIndex(x => x.product.id === product.id);
+      
+      if (index !== -1) {
+        newListCart.splice(index, 1);
       }
-      localStorage.setItem("CART_ITEM", JSON.stringify(stateTemp));
-      return { state: stateTemp };
+      const newStateDelete = { ...state, listCart: newListCart };
+      localStorage.setItem("CART", JSON.stringify(newStateDelete));
+      return newStateDelete;
     }
+    case types.UPDATE_PLUS_PRODUCT_IN_CART: {
+      const { product, quantity } = action;
+      const newListCart = [...state.listCart];
+      const index = newListCart.findIndex(x => x.product.id === product.id);
+      if (index !== -1) {
+        newListCart[index].quantity += quantity;
+      }
+      const newStatePlusQuantity = { ...state, listCart: newListCart };
+      localStorage.setItem("CART", JSON.stringify(newStatePlusQuantity));
+      return newStatePlusQuantity;
+    }
+    case types.UPDATE_MINUS_PRODUCT_IN_CART: {
+      const { product, quantity } = action;
+      const newListCart = [...state.listCart];
+      const index = newListCart.findIndex(x => x.product.id === product.id);
 
+      if (newListCart[index].quantity > 1 && index !== -1) {
+        newListCart[index].quantity -= quantity;
+      }
+
+      const newStatePlusQuantity = { ...state, listCart: newListCart };
+      localStorage.setItem("CART", JSON.stringify(newStatePlusQuantity));
+      return newStatePlusQuantity;
+    }
     default:
       return state;
   }
 };
-
-const findProductInCartById = (cart, productItem) => {
-  let index = -1;
-  for (let i = 0; i < cart.length; i++) {
-    if (cart[i].productItem.id === productItem.id) {
-      index = i;
-      break;
-    }
-  }
-  return index;
-};
-
-export default cartReducer;
+export default cart;
