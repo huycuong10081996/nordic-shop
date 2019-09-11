@@ -33,11 +33,13 @@ class NewArrival extends React.Component {
 
   componentDidMount = async () => {
     let response = await Axios.get(
-      `http://api.demo.nordiccoder.com/api/categories`
+      `https://nc-shopping-api.herokuapp.com/api/categories`
     );
     this.setState({ categoryList: response.data.body, loading: false });
 
-    let res = await Axios.get(`http://api.demo.nordiccoder.com/api/products`);
+    let res = await Axios.get(
+      `https://nc-shopping-api.herokuapp.com/api/products`
+    );
     this.setState({ productList: res.data.body });
   };
   render() {

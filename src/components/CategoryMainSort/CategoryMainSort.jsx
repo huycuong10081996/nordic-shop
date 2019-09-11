@@ -36,7 +36,7 @@ class CategoryMainSort extends PureComponent {
       currentFilter: { ...this.state.currentFilter, sortBy: sortDefault }
     };
     this.setState(newState);
-    
+
     this.getProductList(newState.currentFilter);
     this.props.redirect(getParamsUrl(newState.currentFilter));
   };
@@ -52,12 +52,12 @@ class CategoryMainSort extends PureComponent {
         }
       }
     };
-    
+
     const params = JSON.stringify(filter);
     let response = await Axios.get(
-      `http://api.demo.nordiccoder.com/api/products?filter=${params}`
+      `https://nc-shopping-api.herokuapp.com/api/products?filter=${params}`
     );
-    
+
     this.setState({ ...this.state, productList: response.data.body });
   };
 
@@ -67,7 +67,7 @@ class CategoryMainSort extends PureComponent {
       currentFilter: { ...this.state.currentFilter, productPage }
     };
     this.setState(newState);
-    
+
     this.getProductList(newState.currentFilter);
     this.props.redirect(getParamsUrl(newState.currentFilter));
   };
@@ -82,7 +82,6 @@ class CategoryMainSort extends PureComponent {
   };
 
   componentDidMount = async () => {
-    
     this.getProductList(this.state.currentFilter);
     console.log(this.state.productList);
   };
@@ -96,7 +95,6 @@ class CategoryMainSort extends PureComponent {
     };
     const sortArray = Object.keys(sortType);
 
-    
     return (
       <div className="container product_section_container">
         <div className="row">

@@ -29,9 +29,6 @@ class ProductDetail extends PureComponent {
   };
   render() {
     const { productDetail } = this.props;
-    console.log("productdetails", productDetail);
-    console.log("productdetailsthumbnail", productDetail.thumbnails);
-    console.log("productdetailsthumbnail0", productDetail.thumbnails[0]);
     const { quantity } = this.state;
     return (
       <div className="row">
